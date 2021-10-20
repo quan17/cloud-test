@@ -142,8 +142,6 @@ def login(username, password):
     captchaTokenList = re.findall(r"captchaToken' value='(.+?)'", r.text)
     print(f"测试 test {r.text}")
     
-    print(f"测试2 test {r.cookie}")
-    
     print(r.__dict__)
     
     print(dir(r))
