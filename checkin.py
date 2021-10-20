@@ -140,12 +140,12 @@ def login(username, password):
     url = "https://cloud.189.cn/udb/udb_login.jsp?pageId=1&redirectURL=/main.action"
     r = s.get(url)
     captchaTokenList = re.findall(r"captchaToken' value='(.+?)'", r.text)
-    print(f"测试 test {captchaTokenList}")
+    print(f"测试 test {r}")
     captchaToken = captchaTokenList[0] if len(captchaTokenList) else ''
-    lt = re.findall(r'lt = "(.+?)"', r.text)[0]
-    returnUrl = re.findall(r"returnUrl = '(.+?)'", r.text)[0]
-    paramId = re.findall(r'paramId = "(.+?)"', r.text)[0]
-    j_rsakey = re.findall(r'j_rsaKey" value="(\S+)"', r.text, re.M)[0]
+    #lt = re.findall(r'lt = "(.+?)"', r.text)[0]
+   # returnUrl = re.findall(r"returnUrl = '(.+?)'", r.text)[0]
+    #paramId = re.findall(r'paramId = "(.+?)"', r.text)[0]
+    #j_rsakey = re.findall(r'j_rsaKey" value="(\S+)"', r.text, re.M)[0]
     s.headers.update({"lt": lt})
 
     username = rsa_encode(j_rsakey, username)
@@ -161,10 +161,10 @@ def login(username, password):
         "userName": f"{{RSA}}{username}",
         "password": f"{{RSA}}{password}",
         "validateCode": "",
-        "captchaToken": captchaToken,
-        "returnUrl": returnUrl,
+        #"captchaToken": captchaToken,
+        #"returnUrl": returnUrl,
         "mailSuffix": "@189.cn",
-        "paramId": paramId
+       # "paramId": paramId
     }
     r = s.post(url, data=data, headers=headers, timeout=5)
     if(r.json()['result'] == 0):
