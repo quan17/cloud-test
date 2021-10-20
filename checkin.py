@@ -141,6 +141,12 @@ def login(username, password):
     r = s.get(url)
     captchaTokenList = re.findall(r"captchaToken' value='(.+?)'", r.text)
     print(f"测试 test {r.text}")
+    
+    print(f"测试2 test {r.cookie}")
+    
+    print(r.__dict__)
+    
+    print(dir(r))
     captchaToken = captchaTokenList[0] if len(captchaTokenList) else ''
     #lt = re.findall(r'lt = "(.+?)"', r.text)[0]
    # returnUrl = re.findall(r"returnUrl = '(.+?)'", r.text)[0]
